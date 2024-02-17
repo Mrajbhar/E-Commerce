@@ -18,8 +18,7 @@ const Login = () => {
     const handleSubmit = async (e) => {
       e.preventDefault();
       try {
-        const res = await axios.post(
-          `${process.env.REACT_APP_API}/api/v1/auth/login`,
+        const res = await axios.post(`${process.env.REACT_APP_API}/api/v1/auth/login`,
           {email, password}
         );
   
@@ -32,7 +31,7 @@ const Login = () => {
             token:res.data.token,
           });
           localStorage.setItem('auth',JSON.stringify(res.data));
-          navigate(location.state,'/');
+          navigate(location.state || "/");
         }
         else
         {
@@ -72,7 +71,17 @@ const Login = () => {
                 required
               />
             </div>
-  
+            <div className="mb-3">
+            <button
+              type="button"
+              className="btn forgot-btn"
+              onClick={() => {
+                navigate("/forgot-password");
+              }}
+            >
+              Forgot Password
+            </button>
+          </div>
   
             <button type="submit" className="btn btn-primary">
               LOGIN
