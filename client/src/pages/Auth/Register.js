@@ -23,6 +23,7 @@ const Register = () => {
         `${process.env.REACT_APP_API}/api/v1/auth/register`,
         { name, email, password, phone, address,answer }
       );
+      
 
       if(res && res.data.success)
       {
