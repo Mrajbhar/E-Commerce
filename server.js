@@ -4,6 +4,7 @@ import dotenv from 'dotenv'
 import morgan from "morgan";
 import connectdb from "./config/db.js";
 import authRoutes from './routes/authRoute.js'
+import categoryRoutees from "./routes/categoryRoutes.js";
 import cors from 'cors'
 
 dotenv.config();
@@ -23,6 +24,8 @@ app.use(morgan('dev'))
 //routes
 
 app.use('/api/v1/auth',authRoutes);
+
+app.use('/api/v1/category',categoryRoutees);
 
 app.get('/',(req,res)=>{
     res.send('<h1>Welcome to ecommerce app</h1>');
