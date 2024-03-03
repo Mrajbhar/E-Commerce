@@ -28,6 +28,7 @@ app.use('/api/v1/auth',authRoutes);
 
 app.use('/api/v1/category',categoryRoutees);
 
+//product routes
 app.use('/api/v1/product',productRoutes);
 
 app.get('/',(req,res)=>{
