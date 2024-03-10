@@ -1,6 +1,6 @@
 import express from "express";
 import { RequireSignin, isAdmin } from "../middlewares/authoMiddlerware.js";
-import { createProductController, deleteProductController, getProductController, getSingleProductController, productPhotoController, updateProductController } from "../controller/productController.js";
+import { createProductController, deleteProductController, getProductController, getSingleProductController, productCountController, productFiltersController, productListController, productPhotoController, updateProductController } from "../controller/productController.js";
 import ExpressFormidable from "express-formidable";
 
 const router = express.Router();
@@ -34,5 +34,15 @@ router.put(
     ExpressFormidable(),
     updateProductController
   );
+
+
+//filter product
+router.post("/product-filters", productFiltersController);
+
+//product count
+router.get("/product-count", productCountController);
+
+//product per page
+router.get("/product-list/:page", productListController);
 
 export default router
