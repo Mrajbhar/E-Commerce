@@ -39,25 +39,26 @@ const HomePage = () => {
 
   useEffect(() => {
     getAllCategory();
+    getTOtal();
   }, []);
-
-  //get product
+  //get product  getAllproducts
 
   const getAllproducts = async () => {
     try {
-      const { data } = await axios.get(
-        `${process.env.REACT_APP_API}/api/v1/product/get-product`
-      );
+      setLoading(true);
+      const { data } = await axios.get(`${process.env.REACT_APP_API}/api/v1/product/product-list/${page}`);
+      setLoading(false);
       setProducts(data.products);
     } catch (error) {
+      setLoading(false);
       console.log(error);
     }
   };
-
    //getTOtal COunt
-   const getTotal = async () => {
+
+   const getTOtal = async () => {
     try {
-      const { data } = await axios.get("/api/v1/product/product-count");
+      const { data } = await axios.get(`${process.env.REACT_APP_API}/api/v1/product/product-count`);
       setTotal(data?.total);
     } catch (error) {
       console.log(error);
@@ -69,10 +70,11 @@ const HomePage = () => {
     loadMore();
   }, [page]);
   //load more
+
   const loadMore = async () => {
     try {
       setLoading(true);
-      const { data } = await axios.get(`/api/v1/product/product-list/${page}`);
+      const { data } = await axios.get(`${process.env.REACT_APP_API}/api/v1/product/product-list/${page}`);
       setLoading(false);
       setProducts([...products, ...data?.products]);
     } catch (error) {
@@ -161,7 +163,7 @@ const HomePage = () => {
                   <h5 className="card-title">{p.name}</h5>
                   <p className="card-text">{p.description.substring(0,30)}</p>
                   <p className="card-text">${p.price}</p>
-                  <button className="btn btn-primary ms-1">More details</button>
+                  <button className="btn btn-primary ms-1" onClick={() => navigate(`/product/${p.slug}`)}>More details</button>
                   <button className="btn btn-secondary ms-1">
                     ADD TO CART
                   </button>
