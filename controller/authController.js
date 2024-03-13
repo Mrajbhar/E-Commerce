@@ -1,5 +1,6 @@
 import { comarePassword, hashPassword } from "../helpers/authHelper.js";
 import userModel from "../models/userModel.js";
+import orderModel from "../models/orderModel.js";
 import JWT from "jsonwebtoken";
 
 export const registerController = async (req, res) => {
@@ -230,7 +231,7 @@ export const getAllOrdersController = async (req, res) => {
       .find({})
       .populate("products", "-photo")
       .populate("buyer", "name")
-      .sort({ createdAt: "-1" });
+      .sort('-createdAt');
     res.json(orders);
   } catch (error) {
     console.log(error);
@@ -241,6 +242,7 @@ export const getAllOrdersController = async (req, res) => {
     });
   }
 };
+
 
 //order status
 export const orderStatusController = async (req, res) => {
